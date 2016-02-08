@@ -29,10 +29,11 @@ function Draggable(){
     const mouseup$ = fromEvent(element, 'mouseup');
     const dblclick$ = fromEvent(element, 'dblclick');
     const originalPlace = element[0].getBoundingClientRect();
-    console.log(originalPlace)
+
+
     dblclick$.subscribe(() => {
       element.removeClass('mousedown');
-      moveTo({top:originalPlace.top, left:originalPlace.left});
+      moveTo({top:"", left:""});
     });
 
     const dragging = mousedown$.flatMap(function(md) {
@@ -40,7 +41,7 @@ function Draggable(){
       var startX = md.offsetX, startY = md.offsetY;
       return mousemove$.map(function(mm){
         mm.preventDefault();
-        return {top:mm.clientY - startY,left:mm.clientX - startX};
+        return {top:(mm.clientY - startY)+"px",left:(mm.clientX - startX)+"px"};
       }).takeUntil(mouseup$);
     });
 
@@ -54,9 +55,8 @@ function Draggable(){
       element.removeClass('mouseenter');
     });
 
-    function moveTo (pos){
-      console.log(pos);
-      element.css({'top':(pos.top+'px'), 'left':(pos.left+'px')});
+    function moveTo (pos){      
+      element.css({'top':(pos.top), 'left':(pos.left)});
     }
   }
 }
