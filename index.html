@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html ng-app='MyApp'>
+  <head>
+    <meta charset="utf-8">
+    <script src="angular.min.js" charset="utf-8"></script>
+    <script src="rx.all.min.js" charset="utf-8"></script>
+    <script src="app.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="pure.css" media="screen" title="no title" charset="utf-8">
+    <title>Drag It</title>
+  </head>
+  <body x-ng-controller='MyCtrl as vm'>
+    <form class="form-inline">
+      <input type="text" name="name" x-ng-model="vm.title">
+      <button type="button" x-ng-click="vm.createBox(vm.title)">save</button>
+    </form>
+    <div class="box" draggable x-ng-repeat="box in vm.boxes">
+        <span x-ng-bind="box.title"></span>
+    </div>
+  </body>
+</html>
